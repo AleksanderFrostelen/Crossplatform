@@ -51,6 +51,7 @@ $stateProvider
 .controller("ListController", function ($scope, $http, $state, $stateParams, $ionicPopup, $filter) {
   
   $scope.data={};
+
   $scope.book = function () {
   
   
@@ -59,14 +60,14 @@ $stateProvider
               var checkin = new Date(checkin);
               var checkout = new Date(checkout);
         
-              var timeDifference = Math.abs(checkout.getTime() - checkin.getTime());
-              var daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
-              var amountOfDays = parseInt(daysDifference);
-              if (amountOfDays == 0) {
-                amountOfDays = 1;
+              var timeDiff = Math.abs(checkout.getTime() - checkin.getTime());
+              var daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+              var sumOfDays = parseInt(daysDiff);
+              if (sumOfDays == 0) {
+                sumOfDays = 1;
               }
-              $scope.amountOfDays = amountOfDays;
-              return amountOfDays;
+              $scope.sumOfDays = sumOfDays;
+              return sumOfDays;
             }
              
             $scope.today = $filter("date")(Date.now(), 'yyyy-MM-dd');
@@ -77,18 +78,15 @@ $stateProvider
             }
         
             $scope.confirm = function () {
-              $scope.totalPriceFinal = ($scope.data.price - 0) * $scope.amountOfDays;
-              $scope.data.days = $scope.amountOfDays;
+              $scope.totalPriceFinal = ($scope.data.price - 0) * $scope.sumOfDays;
+              $scope.data.days = $scope.sumOfDays;
               $scope.data.totalPrice = $scope.totalPriceFinal;
   
-              console.log($scope.amountOfDays);
+              console.log($scope.sumOfDays);
               console.log($scope.totalPriceFinal);
             }
-  
 
-         
           
-
       $ionicPopup.alert({
         title: "Booking information",
         template: "<h5> Booked room: " + "<br>" + $scope.whichroom + "</h5>" +
@@ -97,19 +95,19 @@ $stateProvider
         "<h5> Email: " + "<br>" + $scope.data.email + "</h5>" +
         "<h5> Phone number: " + "<br>" + $scope.data.tel + "</h5>" +
         "<hr>" +
-        "<h5> Adults: " + "<br>" + $scope.data.adult + "</h5>" +
-        "<h5> Kids: " + "<br>" + $scope.data.kid + "</h5>" +
+        "<h5> Adults: " + "<br>" + $scope.data.adults + "</h5>" +
+        "<h5> Kids: " + "<br>" + $scope.data.kids + "</h5>" +
         "<hr>" +
         "<h5> Check-in date: " + "<br>" + $scope.data.checkin + "</h5>" +
         "<h5> Check-out date: " + "<br>" + $scope.data.checkout + "</h5>" +
         "<hr>" +
-        "<h3> Total amout: " + " " + $scope.totalPriceFinal + "</h3>",
-
+        "<h3> Total amount: " + " " + $scope.totalPriceFinal + "</h3>",
+      
       });
 
-
+    
     }
-
+  
   // Hämta JSON-listan via HTTP
   $http.get('model/data.json')
        .success(function(data){
@@ -124,7 +122,7 @@ $stateProvider
     
           
     })
-
+  
 })
 
 .run(function($ionicPlatform) {

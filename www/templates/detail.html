@@ -9,10 +9,31 @@
       <h3>Maximum number of guests: {{info.max}}</h3> <br>
       <p>{{info.bio}}</p>
     </ion-list> 
-
     
-      <form name="myForm" ng-submit="book()" class="padding">
-
+    
+    <form name="form" ng-submit="book()" class="padding">
+      
+      <label class="item item-input">
+          <span class="input-label"> Check-in date</span> 
+        <input type="date" name="checkin" ng-model="data.checkin" min="{{today}}" ng-blur="getbookdate()" required>
+      </label>
+      
+      <label class="item item-input">
+          <span class="input-label"> Check-out date</span>
+        <input type="date" name="checkout" ng-model="data.checkout" min="{{bookdate}}" ng-blur="confirm()" required>
+      </label>
+      <label style="padding:0%" class="item item-input item-stacked-label">
+          <ion-item ng-repeat="info in rooms | filter: {shortname:whichroom}">
+            <span class="input-label"> Adults</span>
+            <input type="number" name="adults" placeholder="Input number of adults" min="1" max="{{info.max}}" ng-model="data.adults" required>
+        </label>
+  
+        <label style="padding:0%" class="item item-input item-stacked-label">
+          <ion-item ng-repeat="info in rooms | filter: {shortname:whichroom}">
+            <span class="input-label"> Kids</span>
+            <input type="number" name="kids" placeholder="Input number of kids" min="0" max="{{info.max - data.adult}}" ng-model="data.kids"
+              required>
+        </label>
       <label class="item item-input item-stacked-label">
         <span class="input-label">First name</span>
         <input type="text" name="firstname" placeholder="Type in firstname" ng-model="data.firstname" required>
@@ -37,40 +58,21 @@
 
         </label>
       
-      <label style="padding:0%" class="item item-input item-stacked-label">
-          <ion-item ng-repeat="info in rooms | filter: {shortname:whichroom}">
-            <span class="input-label"> Number of adults</span>
-            <input type="number" name="adult" placeholder="Input number of adults" min="1" max="{{info.max}}" ng-model="data.adult" required>
-        </label>
-  
-        <label style="padding:0%" class="item item-input item-stacked-label">
-          <ion-item ng-repeat="info in rooms | filter: {shortname:whichroom}">
-            <span class="input-label"> Number of kids</span>
-            <input type="number" name="kid" placeholder="Input number of kids" min="0" max="{{info.max - data.adult}}" ng-model="data.kid"
-              required>
-        </label>
         
-        <label class="item item-input">
-            <span class="input-label"> Check-in date</span> 
-          <input type="date" name="checkin" ng-model="data.checkin" min="{{today}}" ng-blur="getbookdate()" required>
-        </label>
-        
-        <label class="item item-input">
-            <span class="input-label"> Check-out date</span>
-          <input type="date" name="checkout" ng-model="data.checkout" min="{{bookdate}}" ng-blur="confirm()" required>
-        </label>
         
   
         <ion-item ng-repeat="info in rooms | filter: {shortname:whichroom}">
   
           <label class="item item-input item-stacked-label" ng-model="data.days" 
-          ng-init="data.days=amountOfDays">Total nights booked {{amountOfDays}}</label>
+          ng-init="data.days=sumOfDays">Total nights booked {{sumOfDays}}</label>
           <label class="item item-input item-stacked-label" ng-model="data.totalPrice" ng-init="data.totalPrice=totalPriceFinal"> Total price 
-          {{(info.price-0) * (dateDifference(data.checkin, data.checkout)-0)}}.00 SEK</label>
+          {{(info.price-0) * (dateDiff(data.checkin, data.checkout)-0)}}.00 SEK</label>
            
           
-          <input type="submit" name="book" ng-disabled="myForm.$invalid" value="Book" class="button button-block button-positive">
+          <input type="submit" name="book" ng-disabled="form.$invalid" value="Book" class="button button-block button-positive">
+
           <h3>Data</h3>
+
           <pre>
               {{data | json}}
           </pre>
