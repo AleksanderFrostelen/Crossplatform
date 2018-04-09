@@ -1,0 +1,27 @@
+{
+  "rooms": [
+  {
+    "whichroom":"Single",
+    "price":"500 SEK",
+    "shortname":"single_room",
+    "bio": "For the lonely hearts",
+    "max": "1"
+
+  },
+  {
+    "whichroom":"Double",
+    "price":"700 SEK",
+    "shortname":"double_room",
+    "bio": "Our double beded room for those who enjoy comfort",
+    "max": "2"
+    
+  },
+  {
+    "whichroom":"Suite",
+    "price":"900 SEK",
+    "shortname":"suite_room",
+    "bio":"One of our most luxirious rooms available.",
+    "max" : "5"
+  }
+]
+}

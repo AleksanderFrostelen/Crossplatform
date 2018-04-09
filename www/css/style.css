@@ -1,0 +1,30 @@
+
+.splash{
+  background: url("../img/cover_1.jpg") fixed;
+  background-size: cover;
+}
+
+
+
+.error{
+  color: red;
+}
+input.ng-invalid-email{
+  color: red;
+}
+input.ng-valid-email{
+  color: black;
+}
+.bg{
+  background-image: url(../img/cover_1.jpg);
+  height: 100%;
+  width:100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.rooms{
+  display: block;
+  margin: auto;
+  width: 100%;
+}
